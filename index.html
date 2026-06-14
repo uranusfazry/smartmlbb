@@ -1123,7 +1123,7 @@
 
     <!-- Footer -->
     <footer class="content-layer" style="text-align: center; color: #fff;">
-        <p class="font-cinzel" style="font-size: 0.875rem; opacity: 0.85;">© 2026 Created by GALACTIC STARHAWK | All Rights Reserved</p>
+        <p id="footer-copyright" class="font-cinzel" style="font-size: 0.875rem; opacity: 0.85;">© 2026 Created by GALACTIC STARHAWK | All Rights Reserved</p>
         <p class="gold-text font-cinzel" style="font-size: 0.75rem; margin-top: 0.5rem;">Forged by Uranus Support Technology</p>
     </footer>
 
@@ -1394,7 +1394,7 @@
         {
             id: "fanny",
             name: "Fanny Galactic Starhawk",
-            websiteName: "MLBB SUYOU",
+            websiteName: "MLBB FANNY",
             themeTitle: "Fanny Galactic Starhawk",
             theme: "galactic",
             background: "default",
@@ -2014,6 +2014,13 @@
             document.getElementById('display-website-name').textContent = wName;
             document.getElementById('display-theme-title').textContent = tTitle;
             document.title = `MLBB Portal | ${wName}`;
+            
+            // Ubah teks copyright di footer berdasarkan tema karakter aktif
+            let fName = (tTitle && tTitle.toLowerCase().includes("sasuke")) ? "SASUKE UCHIHA" : "GALACTIC STARHAWK";
+            const footerEl = document.getElementById('footer-copyright');
+            if (footerEl) {
+                footerEl.innerHTML = `&copy; 2026 Created by ${fName} | All Rights Reserved`;
+            }
             
             // Sync hidden inputs safely (kept for backward compatibility)
             const deskName = document.getElementById('desktop-website-name');
