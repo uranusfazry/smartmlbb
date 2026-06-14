@@ -18,6 +18,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
 
         :root {
             --main-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif;
@@ -33,6 +34,11 @@
             --success-green: #00e0b8;
             --error-red: #ff3b3b;
             --warning-yellow: #ffd700;
+            
+            /* Warna Neon Uranus Fazry */
+            --neon-blue: #05d9e8;
+            --neon-pink: #ff2a6d;
+            --neon-purple: #d300c5;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -731,30 +737,50 @@
             font-size: 0.8rem !important;
         }
 
-        /* --- EFEK GABUNGAN URANUS FAZRY --- */
+        /* =============================================
+         * URANUS FAZRY HEADER STYLE
+         * ============================================= */
+        .uf-header-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 0;
+            z-index: 10;
+        }
+
+        .uf-title {
+            font-family: 'Orbitron', sans-serif !important;
+            font-size: 3rem !important;
+            font-weight: 700 !important;
+            margin: 0 0 2px 0 !important; /* Turun mendekati garis biru */
+            text-transform: uppercase !important;
+            line-height: 1.1 !important;
+            color: white !important;
+            text-shadow: none !important;
+        }
+        @media (min-width: 768px) {
+            .uf-title { font-size: 4.5rem !important; margin: 0 0 4px 0 !important; }
+        }
+
         .glitch-effect {
             position: relative;
-            z-index: 1;
-            display: inline-block;
         }
         .glitch-effect::before, .glitch-effect::after {
             content: attr(data-text);
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             opacity: 0.8;
             pointer-events: none;
-            text-transform: uppercase;
         }
         .glitch-effect::before {
-            color: #05d9e8;
+            color: var(--neon-blue);
             z-index: -1;
             animation: glitch-anim 3s infinite;
         }
         .glitch-effect::after {
-            color: #ff2a6d;
+            color: var(--neon-pink);
             z-index: -2;
             animation: glitch-anim 2s infinite reverse;
         }
@@ -768,31 +794,32 @@
         }
 
         .uf-line-1 {
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 140%;
-            max-width: 250px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #05d9e8, transparent);
+            width: 12rem;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
             border-radius: 2px;
+            margin-bottom: 4px; /* Jarak antara garis biru dan pink */
         }
         .uf-line-2 {
-            position: absolute;
-            bottom: -16px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            max-width: 150px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #ff2a6d, transparent);
+            width: 8rem;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--neon-pink), transparent);
             border-radius: 2px;
         }
-        
-        header .profile {
-            border: 3px solid #ff2a6d !important;
-            box-shadow: 0 0 20px #ff2a6d, 0 0 30px #d300c5 !important;
+
+        .uf-subtitle.neon-text-purple {
+            font-family: 'Orbitron', sans-serif !important;
+            color: var(--neon-purple) !important;
+            text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 15px var(--neon-purple) !important;
+            font-size: 1.125rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+            margin-top: 6px !important; /* Naik mendekati garis pink */
+            margin-bottom: 0 !important;
+            font-weight: 500 !important;
+        }
+        @media (min-width: 768px) {
+            .uf-subtitle.neon-text-purple { font-size: 1.25rem !important; margin-top: 8px !important; }
         }
 
         /* Fix for non-galactic themes missing some definitions after cleanup */
@@ -1333,7 +1360,7 @@
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div id="logo-container" style="display: flex; align-items: center; cursor: pointer; user-select: none;">
                     <img src="https://files.catbox.moe/oyk6sx.png" alt="Logo" class="logo-pulse" style="height: 50px; width: auto; border-radius: 50%;" draggable="false" crossorigin="anonymous">
-                    <span id="nav-website-name" style="font-weight: 700; font-size: 1.2rem; letter-spacing: -0.025em; margin-left: 0.25rem; color: var(--gold); text-transform: uppercase;">MLBB SUYOU</span>
+                    <span id="nav-website-name" style="font-weight: 700; font-size: 1.2rem; letter-spacing: -0.025em; margin-left: 0.25rem; color: var(--gold); text-transform: uppercase;">SUYOU</span>
                 </div>
 
                 <!-- Desktop Nav -->
@@ -1371,16 +1398,18 @@
 
     <!-- Main Content -->
     <main class="container content-layer" style="padding-top: 110px; padding-bottom: 2rem;">
-        <header class="profile-container" style="margin-bottom: 4rem;">
-            <div class="profile" style="margin: 0 auto 1.5rem;">
+        <header class="profile-container">
+            <div class="profile">
                 <img id="profile-avatar" src="https://files.catbox.moe/7bhm9w.webp" alt="Avatar Profil" style="object-fit: cover;">
             </div>
-            <div style="position: relative; display: inline-block; text-align: center; margin-bottom: 0.5rem;">
-                <h1 class="hero-title glitch-effect" id="display-website-name" data-text="MLBB Suyou" style="margin-bottom: 0;">MLBB Suyou</h1>
+            
+            <div class="uf-header-container">
+                <h1 class="glitch-effect uf-title" id="display-website-name" data-text="SUYOU">SUYOU</h1>
                 <span class="uf-line-1"></span>
                 <span class="uf-line-2"></span>
             </div>
-            <p id="display-theme-title" style="color: #d300c5; text-shadow: 0 0 5px #d300c5, 0 0 10px #d300c5; font-size: 1.1rem; margin-top: 1.5rem; font-family: var(--sf-pro); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;">Sasuke Uchiha</p>
+            <p id="display-theme-title" class="neon-text-purple uf-subtitle">Sasuke Uchiha</p>
+            
         </header>
         <div id="portals-grid"></div>
     </main>
@@ -1648,7 +1677,7 @@
         {
             id: "sasuke",
             name: "Sasuke Uchiha",
-            websiteName: "MLBB SUYOU",
+            websiteName: "SUYOU",
             themeTitle: "Sasuke Uchiha",
             theme: "midnight-executive",
             background: "sasuke",
@@ -1672,7 +1701,7 @@
         theme: "midnight-executive",
         font: "sf-pro",
         background: "sasuke",
-        websiteName: "MLBB SUYOU",
+        websiteName: "SUYOU",
         themeTitle: "Sasuke Uchiha",
         visualEffect: "glass",
         character: "sasuke"
@@ -2122,13 +2151,13 @@
                        (data.theme || "midnight-executive") + SEP_SETTINGS + 
                        (data.font || "sf-pro") + SEP_SETTINGS + 
                        (data.background || "sasuke") + SEP_SETTINGS + 
-                       (data.websiteName || "MLBB SUYOU") + SEP_SETTINGS + 
+                       (data.websiteName || "SUYOU") + SEP_SETTINGS + 
                        (data.themeTitle || "Sasuke Uchiha") + SEP_SETTINGS + 
                        (data.visualEffect || "glass") + SEP_SETTINGS +
                        (data.character || "sasuke");
             },
             deserialize(str) {
-                if (!str) return { portals:[], theme:"midnight-executive", font:"sf-pro", background:"sasuke", websiteName:"MLBB SUYOU", themeTitle:"Sasuke Uchiha", visualEffect:"glass", character:"sasuke" };
+                if (!str) return { portals:[], theme:"midnight-executive", font:"sf-pro", background:"sasuke", websiteName:"SUYOU", themeTitle:"Sasuke Uchiha", visualEffect:"glass", character:"sasuke" };
                 const parts = str.split(SEP_SETTINGS);
                 const ps = parts[0] ? parts[0].split(SEP_ITEM).map(s => {
                     const f = s.split(SEP_FIELD);
@@ -2139,7 +2168,7 @@
                     theme: parts[1] || "midnight-executive", 
                     font: parts[2] || "sf-pro",
                     background: parts[3] || "sasuke",
-                    websiteName: parts[4] || "MLBB SUYOU",
+                    websiteName: parts[4] || "SUYOU",
                     themeTitle: parts[5] || "Sasuke Uchiha",
                     visualEffect: parts[6] || "glass",
                     character: parts[7] || "sasuke"
@@ -2190,7 +2219,7 @@
                     customizationSettings.theme = decoded.theme || "midnight-executive";
                     customizationSettings.font = decoded.font || "sf-pro";
                     customizationSettings.background = decoded.background || "sasuke";
-                    customizationSettings.websiteName = decoded.websiteName || "MLBB SUYOU";
+                    customizationSettings.websiteName = decoded.websiteName || "SUYOU";
                     customizationSettings.themeTitle = decoded.themeTitle || "Sasuke Uchiha";
                     customizationSettings.visualEffect = decoded.visualEffect || "glass";
                     customizationSettings.character = decoded.character || "sasuke";
@@ -2276,9 +2305,9 @@
         window.applyIdentity = function(wName, tTitle) {
             document.getElementById('nav-website-name').textContent = wName;
             
-            const displayWebsiteName = document.getElementById('display-website-name');
-            displayWebsiteName.textContent = wName;
-            displayWebsiteName.setAttribute('data-text', wName);
+            const heroTitle = document.getElementById('display-website-name');
+            heroTitle.textContent = wName;
+            heroTitle.setAttribute('data-text', wName); // Memastikan efek glitch mengikuti nama
             
             document.getElementById('display-theme-title').textContent = tTitle;
             document.title = `MLBB Portal | ${wName}`;
@@ -2674,7 +2703,7 @@
                             customizationSettings.theme = imported.theme || "midnight-executive";
                             customizationSettings.font = imported.font || "sf-pro";
                             customizationSettings.background = imported.background || "sasuke";
-                            customizationSettings.websiteName = imported.websiteName || "MLBB SUYOU";
+                            customizationSettings.websiteName = imported.websiteName || "SUYOU";
                             customizationSettings.themeTitle = imported.themeTitle || "Sasuke Uchiha";
                             customizationSettings.visualEffect = imported.visualEffect || "glass";
                             customizationSettings.character = imported.character || "sasuke";
