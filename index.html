@@ -19,9 +19,10 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 
         :root {
-            --main-font: 'Inter', sans-serif;
+            --main-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
             --flame-red: #ce00a7;
             --lava-orange: #4a0072;
             --gold: #00c8e0;
@@ -65,6 +66,63 @@
 
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-sf-pro {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+        }
+
+        /* =============================================
+         * FORGE FONT ACCORDION UI
+         * ============================================= */
+        .forge-font-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background .2s ease;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .forge-font-option:hover { background: rgba(255,255,255,.06); }
+        body:not([data-theme="galactic"]):not([data-theme=""]) .forge-font-option:hover { background: rgba(0,0,0,.05); }
+
+        .forge-font-option-left { display: flex; flex-direction: column; gap: 2px; }
+        .forge-font-option-name {
+            font-size: .9rem;
+            font-weight: 600;
+            color: rgba(255,255,255,.85);
+            line-height: 1;
+        }
+        body:not([data-theme="galactic"]):not([data-theme=""]) .forge-font-option-name { color: var(--th-text); }
+        .forge-font-option-desc {
+            font-size: .72rem;
+            color: rgba(255,255,255,.35);
+            font-weight: 400;
+            line-height: 1;
+        }
+        body:not([data-theme="galactic"]):not([data-theme=""]) .forge-font-option-desc { color: var(--th-text-sec); }
+        .forge-font-option-preview {
+            font-size: .82rem;
+            color: rgba(255,255,255,.45);
+            font-weight: 400;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 120px;
+        }
+        body:not([data-theme="galactic"]):not([data-theme=""]) .forge-font-option-preview { color: var(--th-text-sec); }
+
+        .forge-font-option.active .forge-font-option-name { color: var(--gold); }
+        body:not([data-theme="galactic"]):not([data-theme=""]) .forge-font-option.active .forge-font-option-name { color: var(--th-accent); }
+        .forge-font-option.active { background: rgba(0,200,224,.07); }
+        body:not([data-theme="galactic"]):not([data-theme=""]) .forge-font-option.active { background: var(--th-glow); }
+        .forge-font-option .font-check { color: var(--gold); font-size: .8rem; opacity: 0; flex-shrink: 0; }
+        body:not([data-theme="galactic"]):not([data-theme=""]) .forge-font-option .font-check { color: var(--th-accent); }
+        .forge-font-option.active .font-check { opacity: 1; }
+
         .flame-text { color: var(--flame-red); }
         .gold-text { color: var(--gold); }
         .lava-text { color: var(--gold); }
@@ -161,6 +219,7 @@
 
         /* --- THEME CSS VARIABLE MAPS --- */
         body[data-theme="white-titanium"]     { --th-bg:#F8FAFC; --th-card:#FFFFFF; --th-border:#E2E8F0; --th-text:#0F172A; --th-text-sec:#64748B; --th-accent:#2563EB; --th-glow: rgba(37,99,235,.15); --th-shadow: 0 20px 40px rgba(0,0,0,.08); }
+        body[data-theme="silver-elite"]       { --th-bg:#1E293B; --th-card:#334155; --th-border:#94A3B8; --th-text:#F1F5F9; --th-text-sec:#CBD5E1; --th-accent:#CBD5E1; --th-glow: rgba(203,213,225,.25); --th-shadow: 0 20px 40px rgba(148,163,184,.2); }
         body[data-theme="midnight-executive"] { --th-bg:#020617; --th-card:#0F172A; --th-border:#334155; --th-text:#F1F5F9; --th-text-sec:#94A3B8; --th-accent:#3B82F6; --th-glow: rgba(59,130,246,.2); --th-shadow: 0 20px 40px rgba(0,0,0,.4); }
         body[data-theme="royal-amethyst"]     { --th-bg:#140028; --th-card:#2D1155; --th-border:#9333EA; --th-text:#F3E8FF; --th-text-sec:#C4B5FD; --th-accent:#C084FC; --th-glow: rgba(192,132,252,.25); --th-shadow: 0 20px 40px rgba(147,51,234,.3); }
         body[data-theme="emerald-wealth"]     { --th-bg:#052E16; --th-card:#14532D; --th-border:#22C55E; --th-text:#F0FDF4; --th-text-sec:#BBF7D0; --th-accent:#4ADE80; --th-glow: rgba(74,222,128,.2); --th-shadow: 0 20px 40px rgba(34,197,94,.2); }
@@ -291,6 +350,194 @@
         body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="minimalis"] .portal-card:hover { border-color: var(--th-accent) !important; }
         
         body[data-effect="elegant"] .portal-card:hover { transform: translateY(-8px); box-shadow: 0 20px 45px rgba(0,0,0,0.4) !important; }
+
+        /* =============================================
+         * PORTAL EFFECT EXTENSIONS — 10 EFFECTS
+         * ============================================= */
+
+        /* --- GLASS PREMIUM --- */
+        body[data-effect="glass"] .portal-card {
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            background: rgba(255,255,255,0.06) !important;
+            border: 1px solid rgba(255,255,255,0.15) !important;
+            border-radius: 20px !important;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1) !important;
+        }
+        body[data-effect="glass"] .portal-card:hover {
+            background: rgba(255,255,255,0.10) !important;
+            border-color: rgba(255,255,255,0.35) !important;
+            transform: translateY(-6px) !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2) !important;
+        }
+        body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="glass"] .portal-card {
+            background: color-mix(in srgb, var(--th-card) 30%, transparent) !important;
+            border-color: color-mix(in srgb, var(--th-border) 60%, transparent) !important;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.15) !important;
+        }
+        body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="glass"] .portal-card:hover {
+            background: color-mix(in srgb, var(--th-card) 50%, transparent) !important;
+            border-color: var(--th-accent) !important;
+        }
+        body[data-effect="glass"] .portal-card i,
+        body[data-effect="glass"] .portal-card h3 { text-shadow: 0 0 12px currentColor; }
+
+        /* --- LUXURY GOLD --- */
+        body[data-effect="luxury-gold"] .portal-card {
+            background: linear-gradient(135deg, rgba(30,22,5,0.95) 0%, rgba(50,35,5,0.95) 100%) !important;
+            border: 1px solid rgba(234,179,8,0.5) !important;
+            border-radius: 18px !important;
+            box-shadow: 0 0 0 1px rgba(234,179,8,0.15), 0 10px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,220,80,0.1) !important;
+            position: relative;
+        }
+        body[data-effect="luxury-gold"] .portal-card::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(234,179,8,0.06) 0%, transparent 60%);
+            border-radius: inherit; pointer-events: none; z-index: 0;
+        }
+        body[data-effect="luxury-gold"] .portal-card:hover {
+            border-color: #EAB308 !important;
+            box-shadow: 0 0 0 1px rgba(234,179,8,0.6), 0 0 20px rgba(234,179,8,0.25), 0 20px 40px rgba(0,0,0,0.6) !important;
+            transform: translateY(-6px) !important;
+        }
+        body[data-effect="luxury-gold"] .portal-card i { color: #FACC15 !important; filter: drop-shadow(0 0 8px rgba(234,179,8,0.6)); }
+        body[data-effect="luxury-gold"] .portal-card h3 { color: #FDE68A !important; letter-spacing: 0.1em; }
+        body[data-effect="luxury-gold"] .portal-description { color: rgba(234,179,8,0.7) !important; }
+        body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="luxury-gold"] .portal-card {
+            background: linear-gradient(135deg, color-mix(in srgb, var(--th-card) 90%, #EAB308 10%) 0%, var(--th-card) 100%) !important;
+            border-color: rgba(234,179,8,0.6) !important;
+            box-shadow: 0 0 0 1px rgba(234,179,8,0.2), 0 10px 30px rgba(234,179,8,0.1) !important;
+        }
+
+        /* --- SILVER EXECUTIVE --- */
+        body[data-effect="silver-executive"] .portal-card {
+            background: linear-gradient(160deg, rgba(30,35,45,0.97) 0%, rgba(20,25,35,0.97) 100%) !important;
+            border: 1px solid rgba(148,163,184,0.35) !important;
+            border-radius: 14px !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(203,213,225,0.08) !important;
+        }
+        body[data-effect="silver-executive"] .portal-card:hover {
+            border-color: rgba(203,213,225,0.7) !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3), 0 15px 35px rgba(0,0,0,0.35), inset 0 1px 0 rgba(203,213,225,0.15) !important;
+            transform: translateY(-4px) !important;
+        }
+        body[data-effect="silver-executive"] .portal-card i { color: #CBD5E1 !important; filter: drop-shadow(0 0 6px rgba(203,213,225,0.4)); }
+        body[data-effect="silver-executive"] .portal-card h3 { color: #F1F5F9 !important; font-weight: 600 !important; letter-spacing: 0.08em; }
+        body[data-effect="silver-executive"] .portal-description { color: rgba(148,163,184,0.85) !important; }
+        body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="silver-executive"] .portal-card {
+            background: linear-gradient(160deg, var(--th-card) 0%, color-mix(in srgb, var(--th-card) 85%, #94A3B8 15%) 100%) !important;
+            border-color: rgba(148,163,184,0.5) !important;
+        }
+
+        /* --- NEON CYBER --- */
+        body[data-effect="neon"] .portal-card {
+            background: rgba(2,6,23,0.92) !important;
+            border: 1.5px solid #00c8e0 !important;
+            border-radius: 12px !important;
+            box-shadow: 0 0 8px rgba(0,200,224,0.4), 0 0 20px rgba(0,200,224,0.15), inset 0 0 12px rgba(0,200,224,0.04) !important;
+        }
+        body[data-effect="neon"] .portal-card:hover {
+            border-color: #fff !important;
+            box-shadow: 0 0 12px rgba(0,200,224,0.7), 0 0 35px rgba(0,200,224,0.35), inset 0 0 20px rgba(0,200,224,0.08) !important;
+            transform: translateY(-5px) !important;
+        }
+        body[data-effect="neon"] .portal-card i { filter: drop-shadow(0 0 8px currentColor); }
+        body[data-effect="neon"] .portal-card h3 { text-shadow: 0 0 10px rgba(0,200,224,0.5); }
+        body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="neon"] .portal-card {
+            background: color-mix(in srgb, var(--th-bg) 95%, transparent) !important;
+            border-color: var(--th-accent) !important;
+            box-shadow: 0 0 8px var(--th-glow), 0 0 20px color-mix(in srgb, var(--th-glow) 50%, transparent), inset 0 0 12px color-mix(in srgb, var(--th-glow) 20%, transparent) !important;
+        }
+        body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="neon"] .portal-card:hover {
+            box-shadow: 0 0 15px var(--th-glow), 0 0 40px color-mix(in srgb, var(--th-glow) 60%, transparent) !important;
+        }
+        body[data-effect="neon"] .portal-card h3,
+        body[data-effect="neon"] .portal-card i { color: var(--portal-color) !important; }
+
+        /* --- ROYAL PURPLE --- */
+        body[data-effect="royal-purple"] .portal-card {
+            background: linear-gradient(145deg, rgba(45,17,85,0.95) 0%, rgba(20,0,40,0.95) 100%) !important;
+            border: 1px solid rgba(147,51,234,0.5) !important;
+            border-radius: 16px !important;
+            box-shadow: 0 0 0 1px rgba(147,51,234,0.1), 0 10px 30px rgba(88,28,135,0.35) !important;
+        }
+        body[data-effect="royal-purple"] .portal-card::after {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(196,132,252,0.6), transparent);
+            border-radius: inherit; pointer-events: none;
+        }
+        body[data-effect="royal-purple"] .portal-card:hover {
+            border-color: rgba(196,132,252,0.8) !important;
+            box-shadow: 0 0 0 1px rgba(147,51,234,0.3), 0 0 20px rgba(147,51,234,0.3), 0 20px 40px rgba(88,28,135,0.5) !important;
+            transform: translateY(-6px) !important;
+        }
+        body[data-effect="royal-purple"] .portal-card i { color: #C084FC !important; filter: drop-shadow(0 0 8px rgba(192,132,252,0.6)); }
+        body[data-effect="royal-purple"] .portal-card h3 { color: #E9D5FF !important; }
+        body[data-effect="royal-purple"] .portal-description { color: rgba(196,132,252,0.8) !important; }
+        body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="royal-purple"] .portal-card {
+            background: linear-gradient(145deg, color-mix(in srgb, var(--th-card) 70%, #9333EA 30%) 0%, var(--th-card) 100%) !important;
+            border-color: rgba(147,51,234,0.5) !important;
+            box-shadow: 0 10px 30px rgba(88,28,135,0.2) !important;
+        }
+
+        /* --- FLOATING CARD --- */
+        body[data-effect="floating-card"] .portal-card {
+            background: rgba(15,18,40,0.88) !important;
+            border: none !important;
+            border-radius: 20px !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.2), 0 20px 40px rgba(0,0,0,0.3) !important;
+            transform: translateY(0) !important;
+            transition: transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275), box-shadow 0.4s ease !important;
+        }
+        body[data-effect="floating-card"] .portal-card:hover {
+            transform: translateY(-12px) !important;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 16px 32px rgba(0,0,0,0.25), 0 40px 60px rgba(0,0,0,0.35) !important;
+        }
+        body[data-effect="floating-card"] .portal-card i { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); }
+        body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="floating-card"] .portal-card {
+            background: var(--th-card) !important;
+            border: none !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 8px 16px rgba(0,0,0,0.1), 0 20px 40px rgba(0,0,0,0.1) !important;
+        }
+        body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="floating-card"] .portal-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08), 0 16px 32px rgba(0,0,0,0.12), 0 40px 60px rgba(0,0,0,0.15) !important;
+        }
+
+        /* --- COMPACT PRO --- */
+        body[data-effect="compact-pro"] #portals-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 0.75rem !important;
+        }
+        @media (min-width: 640px) {
+            body[data-effect="compact-pro"] #portals-grid { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+        @media (min-width: 1024px) {
+            body[data-effect="compact-pro"] #portals-grid { grid-template-columns: repeat(4, 1fr) !important; }
+        }
+        body[data-effect="compact-pro"] .portal-card {
+            background: rgba(15,18,40,0.92) !important;
+            border: 1px solid rgba(255,255,255,0.08) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+        }
+        body[data-effect="compact-pro"] .portal-card > div { padding: 1rem !important; }
+        body[data-effect="compact-pro"] .portal-card i { font-size: 2rem !important; margin-bottom: 0.5rem !important; }
+        body[data-effect="compact-pro"] .portal-card h3 { font-size: 0.75rem !important; margin-bottom: 0.25rem !important; }
+        body[data-effect="compact-pro"] .portal-description { font-size: 0.7rem !important; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        body[data-effect="compact-pro"] .portal-card:hover {
+            border-color: var(--portal-color) !important;
+            transform: translateY(-3px) !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4) !important;
+        }
+        body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="compact-pro"] .portal-card {
+            background: var(--th-card) !important;
+            border-color: var(--th-border) !important;
+        }
+        body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="compact-pro"] .portal-card:hover {
+            border-color: var(--th-accent) !important;
+        }
 
         /* Fix for non-galactic themes missing some definitions after cleanup */
         body:not([data-theme="galactic"]):not([data-theme=""]) .dropdown,
@@ -1090,6 +1337,7 @@
         { id: "ocean-sapphire", name: "Biru Samudra" },
         { id: "cyber-neon", name: "Cyber Neon" },
         { id: "gold-prestige", name: "Emas Prestise" },
+        { id: "silver-elite", name: "Silver Elite" },
         { id: "crimson-elite", name: "Merah Elite" },
         { id: "sakura-luxury", name: "Sakura Mewah" },
         { id: "galactic", name: "Galactic Starhawk" }
@@ -1097,16 +1345,16 @@
 
     // Typography Presets
     const FONTS = [
-        { id: "inter", name: "Inter", stack: "'Inter', sans-serif" },
-        { id: "sf-pro", name: "SF Pro Display", stack: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" },
-        { id: "roboto", name: "Roboto", stack: "'Roboto', sans-serif" },
-        { id: "google-sans", name: "Google Sans", stack: "'Product Sans', 'Google Sans', sans-serif" },
-        { id: "helvetica", name: "Helvetica Neue", stack: "'Helvetica Neue', Helvetica, Arial, sans-serif" },
-        { id: "segoe-ui", name: "Segoe UI", stack: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" },
-        { id: "san-francisco", name: "San Francisco", stack: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif" },
-        { id: "poppins", name: "Poppins", stack: "'Poppins', sans-serif" },
-        { id: "montserrat", name: "Montserrat", stack: "'Montserrat', sans-serif" },
-        { id: "nunito", name: "Nunito", stack: "'Nunito', sans-serif" }
+        { id: "sf-pro",      name: "SF Pro Display", desc: "Apple iPhone Style",    stack: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif" },
+        { id: "inter",       name: "Inter",          desc: "Modern Startup",        stack: "'Inter', sans-serif" },
+        { id: "roboto",      name: "Roboto",         desc: "Google Android",        stack: "'Roboto', sans-serif" },
+        { id: "google-sans", name: "Google Sans",    desc: "Google Material",       stack: "'Product Sans', 'Google Sans', 'Roboto', sans-serif" },
+        { id: "segoe-ui",    name: "Segoe UI",       desc: "Microsoft Windows",     stack: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" },
+        { id: "helvetica",   name: "Helvetica Neue", desc: "Swiss Classic",         stack: "'Helvetica Neue', Helvetica, Arial, sans-serif" },
+        { id: "poppins",     name: "Poppins",        desc: "Creative Modern",       stack: "'Poppins', sans-serif" },
+        { id: "montserrat",  name: "Montserrat",     desc: "Bold & Strong",         stack: "'Montserrat', sans-serif" },
+        { id: "nunito",      name: "Nunito",         desc: "Friendly Rounded",      stack: "'Nunito', sans-serif" },
+        { id: "open-sans",   name: "Open Sans",      desc: "Clean & Readable",      stack: "'Open Sans', sans-serif" }
     ];
 
     // Background Presets (kept for compatibility)
@@ -1117,12 +1365,16 @@
 
     // Visual Effect Presets
     const VISUAL_EFFECTS = [
-        { id: "normal", name: "Normal" },
-        { id: "glass", name: "Glassmorphism" },
-        { id: "glow", name: "Premium Glow" },
-        { id: "neon", name: "Neon" },
-        { id: "minimalis", name: "Minimalis" },
-        { id: "elegant", name: "Elegant" }
+        { id: "normal",           name: "Normal",            swatch: "rgba(255,255,255,0.15)" },
+        { id: "glass",            name: "Glass Premium",     swatch: "rgba(255,255,255,0.25)" },
+        { id: "minimalis",        name: "Minimalis",         swatch: "rgba(255,255,255,0.05)" },
+        { id: "elegant",          name: "Elegant",           swatch: "rgba(255,255,255,0.2)"  },
+        { id: "luxury-gold",      name: "Luxury Gold",       swatch: "#EAB308"                },
+        { id: "silver-executive", name: "Silver Executive",  swatch: "#CBD5E1"                },
+        { id: "neon",             name: "Neon Cyber",        swatch: "#00c8e0"                },
+        { id: "royal-purple",     name: "Royal Purple",      swatch: "#9333EA"                },
+        { id: "floating-card",    name: "Floating Card",     swatch: "rgba(99,102,241,0.5)"   },
+        { id: "compact-pro",      name: "Compact Pro",       swatch: "rgba(148,163,184,0.4)"  }
     ];
 
     // ============================================================
@@ -1154,7 +1406,7 @@
     // Centralized Customization State
     let customizationSettings = {
         theme: "midnight-executive",
-        font: "inter",
+        font: "sf-pro",
         background: "sasuke",
         websiteName: "MLBB SUYOU",
         themeTitle: "Sasuke Uchiha",
@@ -1229,20 +1481,57 @@
         custGroup.appendChild(charItem);
         custGroup.appendChild(charAccordion);
 
-        // Font item + accordion
-        const fontItem = createForgeItem('fa-font', 'Font', () => (FONTS.find(f => f.id === customizationSettings.font) || FONTS[0]).name, true);
+        // Tema item + accordion
+        const themeItem = createForgeItem('fa-palette', 'Tema', () => getThemeName(customizationSettings.theme), true);
+        const themeAccordion = document.createElement('div');
+        themeAccordion.className = 'forge-accordion';
+        const themeInner = document.createElement('div');
+        themeInner.className = 'forge-accordion-inner';
+        THEMES.forEach(t => {
+            const opt = document.createElement('div');
+            opt.className = `forge-option theme-opt-${t.id}`;
+            opt.innerHTML = `<div class="opt-dot" style="background:${getThemeSwatchColor(t.id)};"></div> <span>${t.name}</span> <i class="fas fa-check opt-check"></i>`;
+            opt.onclick = () => {
+                window.changeTheme(t.id);
+                customizationSettings.character = "";
+                saveCustomization();
+                refreshAllForgeUI();
+                window.showNotification('Tema Diperbarui', `${t.name} diterapkan`, 'success');
+            };
+            themeInner.appendChild(opt);
+        });
+        themeAccordion.appendChild(themeInner);
+        wireAccordionToggle(themeItem, themeAccordion, container);
+        custGroup.appendChild(themeItem);
+        custGroup.appendChild(themeAccordion);
+
+        // Tipografi item + accordion
+        const fontItem = createForgeItem('fa-font', 'Tipografi', () => getFontName(customizationSettings.font), true);
         const fontAccordion = document.createElement('div');
         fontAccordion.className = 'forge-accordion';
         const fontInner = document.createElement('div');
         fontInner.className = 'forge-accordion-inner';
+        fontInner.style.gap = '2px';
         FONTS.forEach(f => {
-            const opt = document.createElement('div');
-            opt.className = `forge-option font-opt-${f.id}`;
+            const opt = document.createElement('button');
+            opt.type = 'button';
+            opt.className = `forge-font-option font-opt-${f.id}`;
             opt.style.fontFamily = f.stack;
-            opt.innerHTML = `<span>${f.name}</span> <i class="fas fa-check opt-check"></i>`;
+            opt.innerHTML = `
+                <div class="forge-font-option-left">
+                    <span class="forge-font-option-name">${f.name}</span>
+                    <span class="forge-font-option-desc">${f.desc}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="forge-font-option-preview" style="font-family:${f.stack};">Cepat & Profesional</span>
+                    <i class="fas fa-check font-check"></i>
+                </div>
+            `;
             opt.onclick = () => {
-                changeFont(f.id);
-                if (closeMobileOnClick) closeMobileMenu();
+                window.changeFont(f.id);
+                customizationSettings.character = "";
+                saveCustomization();
+                refreshAllForgeUI();
             };
             fontInner.appendChild(opt);
         });
@@ -1250,6 +1539,31 @@
         wireAccordionToggle(fontItem, fontAccordion, container);
         custGroup.appendChild(fontItem);
         custGroup.appendChild(fontAccordion);
+
+        // Efek Portal item + accordion
+        const effectItem = createForgeItem('fa-wand-magic-sparkles', 'Efek Portal', () => getEffectName(customizationSettings.visualEffect), true);
+        const effectAccordion = document.createElement('div');
+        effectAccordion.className = 'forge-accordion';
+        const effectInner = document.createElement('div');
+        effectInner.className = 'forge-accordion-inner';
+        VISUAL_EFFECTS.forEach(ef => {
+            const opt = document.createElement('div');
+            opt.className = `forge-option effect-opt-${ef.id}`;
+            opt.innerHTML = `<div class="opt-dot" style="background:${ef.swatch}; border:1px solid rgba(255,255,255,0.2);"></div> <span>${ef.name}</span> <i class="fas fa-check opt-check"></i>`;
+            opt.onclick = () => {
+                window.applyVisualEffect(ef.id);
+                customizationSettings.visualEffect = ef.id;
+                customizationSettings.character = "";
+                saveCustomization();
+                refreshAllForgeUI();
+                window.showNotification('Efek Portal Diperbarui', `${ef.name} diterapkan`, 'success');
+            };
+            effectInner.appendChild(opt);
+        });
+        effectAccordion.appendChild(effectInner);
+        wireAccordionToggle(effectItem, effectAccordion, container);
+        custGroup.appendChild(effectItem);
+        custGroup.appendChild(effectAccordion);
 
         container.appendChild(custGroup);
 
@@ -1333,6 +1647,38 @@
         return c.name;
     }
 
+    function getThemeName(themeId) {
+        const t = THEMES.find(x => x.id === themeId);
+        return t ? t.name : "Galactic Starhawk";
+    }
+
+    function getEffectName(effectId) {
+        const ef = VISUAL_EFFECTS.find(x => x.id === effectId);
+        return ef ? ef.name : "Normal";
+    }
+
+    function getFontName(fontId) {
+        const f = FONTS.find(x => x.id === fontId);
+        return f ? f.name : "SF Pro Display";
+    }
+
+    function getThemeSwatchColor(themeId) {
+        const swatches = {
+            "white-titanium": "#2563EB",
+            "midnight-executive": "#3B82F6",
+            "royal-amethyst": "#C084FC",
+            "emerald-wealth": "#4ADE80",
+            "ocean-sapphire": "#7DD3FC",
+            "cyber-neon": "#22D3EE",
+            "gold-prestige": "#FACC15",
+            "silver-elite": "#CBD5E1",
+            "crimson-elite": "#EF4444",
+            "sakura-luxury": "#FB7185",
+            "galactic": "#ce00a7"
+        };
+        return swatches[themeId] || "#ce00a7";
+    }
+
     function refreshAllForgeUI() {
         ['desktop-forge-panel','mobile-forge-panel'].forEach(id => {
             const panel = document.getElementById(id);
@@ -1353,6 +1699,21 @@
             FONTS.forEach(f => {
                 panel.querySelectorAll(`.font-opt-${f.id}`).forEach(opt => {
                     opt.classList.toggle('active', customizationSettings.font === f.id);
+                    // update preview text font live
+                    const preview = opt.querySelector('.forge-font-option-preview');
+                    if (preview) preview.style.fontFamily = f.stack;
+                });
+            });
+
+            THEMES.forEach(t => {
+                panel.querySelectorAll(`.theme-opt-${t.id}`).forEach(opt => {
+                    opt.classList.toggle('active', customizationSettings.theme === t.id);
+                });
+            });
+
+            VISUAL_EFFECTS.forEach(ef => {
+                panel.querySelectorAll(`.effect-opt-${ef.id}`).forEach(opt => {
+                    opt.classList.toggle('active', customizationSettings.visualEffect === ef.id);
                 });
             });
         });
@@ -1495,7 +1856,7 @@
                 const ps = data.portals.map(p => [p.name,p.url,p.icon,p.color,p.description||"",p.password||""].join(SEP_FIELD)).join(SEP_ITEM);
                 return ps + SEP_SETTINGS + 
                        (data.theme || "midnight-executive") + SEP_SETTINGS + 
-                       (data.font || "inter") + SEP_SETTINGS + 
+                       (data.font || "sf-pro") + SEP_SETTINGS + 
                        (data.background || "sasuke") + SEP_SETTINGS + 
                        (data.websiteName || "MLBB SUYOU") + SEP_SETTINGS + 
                        (data.themeTitle || "Sasuke Uchiha") + SEP_SETTINGS + 
@@ -1503,7 +1864,7 @@
                        (data.character || "sasuke");
             },
             deserialize(str) {
-                if (!str) return { portals:[], theme:"midnight-executive", font:"inter", background:"sasuke", websiteName:"MLBB SUYOU", themeTitle:"Sasuke Uchiha", visualEffect:"glass", character:"sasuke" };
+                if (!str) return { portals:[], theme:"midnight-executive", font:"sf-pro", background:"sasuke", websiteName:"MLBB SUYOU", themeTitle:"Sasuke Uchiha", visualEffect:"glass", character:"sasuke" };
                 const parts = str.split(SEP_SETTINGS);
                 const ps = parts[0] ? parts[0].split(SEP_ITEM).map(s => {
                     const f = s.split(SEP_FIELD);
@@ -1512,7 +1873,7 @@
                 return { 
                     portals: ps, 
                     theme: parts[1] || "midnight-executive", 
-                    font: parts[2] || "inter",
+                    font: parts[2] || "sf-pro",
                     background: parts[3] || "sasuke",
                     websiteName: parts[4] || "MLBB SUYOU",
                     themeTitle: parts[5] || "Sasuke Uchiha",
@@ -1563,7 +1924,7 @@
                 if (decoded && decoded.portals) {
                     portals = decoded.portals;
                     customizationSettings.theme = decoded.theme || "midnight-executive";
-                    customizationSettings.font = decoded.font || "inter";
+                    customizationSettings.font = decoded.font || "sf-pro";
                     customizationSettings.background = decoded.background || "sasuke";
                     customizationSettings.websiteName = decoded.websiteName || "MLBB SUYOU";
                     customizationSettings.themeTitle = decoded.themeTitle || "Sasuke Uchiha";
@@ -1629,6 +1990,8 @@
         window.applyFont = function(fontId) {
             const fontObj = FONTS.find(f => f.id === fontId) || FONTS[0];
             document.documentElement.style.setProperty('--main-font', fontObj.stack);
+            // persist ke localStorage untuk kompatibilitas sistem lama
+            localStorage.setItem('selectedFont', fontId);
         };
 
         window.applyBackground = function(bgId) {
@@ -2034,7 +2397,7 @@
                         if (Array.isArray(imported.portals)) {
                             localStorage.setItem('portals', JSON.stringify(imported.portals));
                             customizationSettings.theme = imported.theme || "midnight-executive";
-                            customizationSettings.font = imported.font || "inter";
+                            customizationSettings.font = imported.font || "sf-pro";
                             customizationSettings.background = imported.background || "sasuke";
                             customizationSettings.websiteName = imported.websiteName || "MLBB SUYOU";
                             customizationSettings.themeTitle = imported.themeTitle || "Sasuke Uchiha";
