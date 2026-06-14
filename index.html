@@ -1361,7 +1361,7 @@
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div id="logo-container" style="display: flex; align-items: center; cursor: pointer; user-select: none;">
                     <img src="https://files.catbox.moe/oyk6sx.png" alt="Logo" class="logo-pulse" style="height: 50px; width: auto; border-radius: 50%;" draggable="false" crossorigin="anonymous">
-                    <span id="nav-website-name" style="font-weight: 700; font-size: 1.2rem; letter-spacing: -0.025em; margin-left: 0.25rem; color: var(--gold); text-transform: uppercase;">MLBB SUYOU</span>
+                    <span id="nav-website-name" style="font-weight: 700; font-size: 1.2rem; letter-spacing: -0.025em; margin-left: 0.25rem; color: var(--gold); text-transform: uppercase;">SUYOU</span>
                 </div>
 
                 <!-- Desktop Nav -->
@@ -1624,6 +1624,7 @@
     
     // Theme Presets (kept for compatibility / smart link payloads)
     const THEMES = [
+        { id: "galactic", name: "Galactic Starhawk" },
         { id: "white-titanium", name: "Putih Premium" },
         { id: "midnight-executive", name: "Hitam Profesional" },
         { id: "royal-amethyst", name: "Ungu Kerajaan" },
@@ -1633,8 +1634,7 @@
         { id: "gold-prestige", name: "Emas Prestise" },
         { id: "silver-elite", name: "Silver Elite" },
         { id: "crimson-elite", name: "Merah Elite" },
-        { id: "sakura-luxury", name: "Sakura Mewah" },
-        { id: "galactic", name: "Galactic Starhawk" }
+        { id: "sakura-luxury", name: "Sakura Mewah" }
     ];
 
     // Typography Presets
@@ -1678,7 +1678,7 @@
         {
             id: "sasuke",
             name: "Sasuke Uchiha",
-            websiteName: "MLBB SUYOU",
+            websiteName: "SUYOU",
             themeTitle: "Sasuke Uchiha",
             theme: "midnight-executive",
             background: "sasuke",
@@ -1688,7 +1688,7 @@
         {
             id: "fanny",
             name: "Fanny Galactic Starhawk",
-            websiteName: "MLBB FANNY",
+            websiteName: "FANNY",
             themeTitle: "Galactic Starhawk",
             theme: "galactic",
             background: "default",
@@ -1702,10 +1702,11 @@
         theme: "midnight-executive",
         font: "sf-pro",
         background: "sasuke",
-        websiteName: "MLBB SUYOU",
+        websiteName: "SUYOU",
         themeTitle: "Sasuke Uchiha",
         visualEffect: "glass",
-        character: "sasuke"
+        character: "sasuke",
+        characterProfiles: {} // NEW: To store per-character settings
     };
 
     function loadCustomization() {
@@ -1718,12 +1719,35 @@
                 if (localStorage.getItem("theme") && !parsed.theme) customizationSettings.theme = localStorage.getItem("theme");
                 if (localStorage.getItem("selectedFont") && !parsed.font) customizationSettings.font = localStorage.getItem("selectedFont");
                 if (!parsed.character) customizationSettings.character = "sasuke";
+                if (!parsed.characterProfiles) customizationSettings.characterProfiles = {};
             } catch(e) {}
         }
     }
 
     function saveCustomization() {
         localStorage.setItem("customizationSettings", JSON.stringify(customizationSettings));
+    }
+
+    // ============================================================
+    // PROFILE MEMORY HELPER
+    // ============================================================
+    function updateCharacterProfile(key, value) {
+        if (customizationSettings.character) {
+            if (!customizationSettings.characterProfiles) {
+                customizationSettings.characterProfiles = {};
+            }
+            const charId = customizationSettings.character;
+            if (!customizationSettings.characterProfiles[charId]) {
+                const c = CHARACTERS.find(x => x.id === charId);
+                customizationSettings.characterProfiles[charId] = {
+                    theme: c ? c.theme : customizationSettings.theme,
+                    font: customizationSettings.font,
+                    visualEffect: c ? c.visualEffect : customizationSettings.visualEffect,
+                    background: c ? c.background : customizationSettings.background
+                };
+            }
+            customizationSettings.characterProfiles[charId][key] = value;
+        }
     }
 
     // ============================================================
@@ -1787,10 +1811,9 @@
             opt.innerHTML = `<div class="opt-dot" style="background:${getThemeSwatchColor(t.id)};"></div> <span>${t.name}</span> <i class="fas fa-check opt-check"></i>`;
             opt.onclick = () => {
                 window.changeTheme(t.id);
-                customizationSettings.character = "";
-                saveCustomization();
                 refreshAllForgeUI();
                 window.showNotification('Tema Diperbarui', `${t.name} diterapkan`, 'success');
+                if (closeMobileOnClick) closeMobileMenu();
             };
             themeInner.appendChild(opt);
         });
@@ -1823,9 +1846,7 @@
             `;
             opt.onclick = () => {
                 window.changeFont(f.id);
-                customizationSettings.character = "";
-                saveCustomization();
-                refreshAllForgeUI();
+                if (closeMobileOnClick) closeMobileMenu();
             };
             fontInner.appendChild(opt);
         });
@@ -1845,12 +1866,10 @@
             opt.className = `forge-option effect-opt-${ef.id}`;
             opt.innerHTML = `<div class="opt-dot" style="background:${ef.swatch}; border:1px solid rgba(255,255,255,0.2);"></div> <span>${ef.name}</span> <i class="fas fa-check opt-check"></i>`;
             opt.onclick = () => {
-                window.applyVisualEffect(ef.id);
-                customizationSettings.visualEffect = ef.id;
-                customizationSettings.character = "";
-                saveCustomization();
+                window.changeVisualEffect(ef.id);
                 refreshAllForgeUI();
                 window.showNotification('Efek Portal Diperbarui', `${ef.name} diterapkan`, 'success');
+                if (closeMobileOnClick) closeMobileMenu();
             };
             effectInner.appendChild(opt);
         });
@@ -2019,18 +2038,43 @@
     window.selectCharacter = function(charId) {
         const c = CHARACTERS.find(x => x.id === charId);
         if (!c) return;
+        
         customizationSettings.character = charId;
-        customizationSettings.theme = c.theme;
-        customizationSettings.background = c.background;
+        
+        // Buat memory default jika belum ada
+        if (!customizationSettings.characterProfiles) {
+            customizationSettings.characterProfiles = {};
+        }
+        
+        let profile = customizationSettings.characterProfiles[charId];
+        // Jika karakter belum pernah dicustom, panggil settingan bawaannya
+        if (!profile) {
+            profile = {
+                theme: c.theme,
+                font: "sf-pro", // Default font
+                visualEffect: c.visualEffect,
+                background: c.background
+            };
+            customizationSettings.characterProfiles[charId] = profile;
+        }
+
+        // Terapkan pengaturan profil karakter ke pengaturan global
+        customizationSettings.theme = profile.theme;
+        customizationSettings.font = profile.font || "sf-pro";
+        customizationSettings.visualEffect = profile.visualEffect;
+        customizationSettings.background = profile.background;
+        
+        // Identitas nama web & subtitle selalu mengikuti bawaan karakter
         customizationSettings.websiteName = c.websiteName;
         customizationSettings.themeTitle = c.themeTitle;
-        customizationSettings.visualEffect = c.visualEffect;
+        
         saveCustomization();
 
-        applyTheme(c.theme);
-        applyBackground(c.background);
-        applyVisualEffect(c.visualEffect);
-        applyIdentity(c.websiteName, c.themeTitle);
+        applyTheme(customizationSettings.theme);
+        applyFont(customizationSettings.font);
+        applyBackground(customizationSettings.background);
+        applyVisualEffect(customizationSettings.visualEffect);
+        applyIdentity(customizationSettings.websiteName, customizationSettings.themeTitle);
         refreshAllForgeUI();
 
         window.showNotification('Karakter Diperbarui', `${c.name} diterapkan`, 'success');
@@ -2152,13 +2196,13 @@
                        (data.theme || "midnight-executive") + SEP_SETTINGS + 
                        (data.font || "sf-pro") + SEP_SETTINGS + 
                        (data.background || "sasuke") + SEP_SETTINGS + 
-                       (data.websiteName || "MLBB SUYOU") + SEP_SETTINGS + 
+                       (data.websiteName || "SUYOU") + SEP_SETTINGS + 
                        (data.themeTitle || "Sasuke Uchiha") + SEP_SETTINGS + 
                        (data.visualEffect || "glass") + SEP_SETTINGS +
                        (data.character || "sasuke");
             },
             deserialize(str) {
-                if (!str) return { portals:[], theme:"midnight-executive", font:"sf-pro", background:"sasuke", websiteName:"MLBB SUYOU", themeTitle:"Sasuke Uchiha", visualEffect:"glass", character:"sasuke" };
+                if (!str) return { portals:[], theme:"midnight-executive", font:"sf-pro", background:"sasuke", websiteName:"SUYOU", themeTitle:"Sasuke Uchiha", visualEffect:"glass", character:"sasuke" };
                 const parts = str.split(SEP_SETTINGS);
                 const ps = parts[0] ? parts[0].split(SEP_ITEM).map(s => {
                     const f = s.split(SEP_FIELD);
@@ -2169,7 +2213,7 @@
                     theme: parts[1] || "midnight-executive", 
                     font: parts[2] || "sf-pro",
                     background: parts[3] || "sasuke",
-                    websiteName: parts[4] || "MLBB SUYOU",
+                    websiteName: parts[4] || "SUYOU",
                     themeTitle: parts[5] || "Sasuke Uchiha",
                     visualEffect: parts[6] || "glass",
                     character: parts[7] || "sasuke"
@@ -2220,7 +2264,7 @@
                     customizationSettings.theme = decoded.theme || "midnight-executive";
                     customizationSettings.font = decoded.font || "sf-pro";
                     customizationSettings.background = decoded.background || "sasuke";
-                    customizationSettings.websiteName = decoded.websiteName || "MLBB SUYOU";
+                    customizationSettings.websiteName = decoded.websiteName || "SUYOU";
                     customizationSettings.themeTitle = decoded.themeTitle || "Sasuke Uchiha";
                     customizationSettings.visualEffect = decoded.visualEffect || "glass";
                     customizationSettings.character = decoded.character || "sasuke";
@@ -2264,6 +2308,7 @@
         // ============================================================
         window.changeTheme = function(theme) {
             customizationSettings.theme = theme;
+            updateCharacterProfile('theme', theme); // Simpan modifikasi untuk memori
             saveCustomization();
             applyTheme(theme);
         };
@@ -2274,6 +2319,7 @@
 
         window.changeFont = function(fontId) {
             customizationSettings.font = fontId;
+            updateCharacterProfile('font', fontId); // Simpan modifikasi untuk memori
             saveCustomization();
             applyFont(fontId);
             refreshAllForgeUI();
@@ -2288,6 +2334,17 @@
             localStorage.setItem('selectedFont', fontId);
         };
 
+        window.changeVisualEffect = function(effectId) {
+            customizationSettings.visualEffect = effectId;
+            updateCharacterProfile('visualEffect', effectId); // Simpan modifikasi untuk memori
+            saveCustomization();
+            applyVisualEffect(effectId);
+        };
+
+        window.applyVisualEffect = function(effectId) {
+            document.body.setAttribute('data-effect', effectId);
+        };
+
         window.applyBackground = function(bgId) {
             customizationSettings.background = bgId;
             const bgObj = BACKGROUNDS.find(b => b.id === bgId) || BACKGROUNDS[0];
@@ -2296,11 +2353,6 @@
             document.getElementById('bg-landscape').srcset = bgObj.imgL;
             document.getElementById('bg-image').src = bgObj.img;
             document.getElementById('profile-avatar').src = bgObj.avatar;
-        };
-
-        window.applyVisualEffect = function(effectId) {
-            customizationSettings.visualEffect = effectId;
-            document.body.setAttribute('data-effect', effectId);
         };
 
         window.applyIdentity = function(wName, tTitle) {
@@ -2675,13 +2727,7 @@
         window.backupData = async () => {
             const data = { 
                 portals: JSON.parse(localStorage.getItem('portals')) || defaultPortals, 
-                theme: customizationSettings.theme, 
-                font: customizationSettings.font,
-                background: customizationSettings.background,
-                websiteName: customizationSettings.websiteName,
-                themeTitle: customizationSettings.themeTitle,
-                visualEffect: customizationSettings.visualEffect,
-                character: customizationSettings.character
+                ...customizationSettings
             };
             try {
                 const zip = new JSZip(); zip.file("mlbb_portal_backup.json", JSON.stringify(data, null, 2));
@@ -2714,10 +2760,11 @@
                             customizationSettings.theme = imported.theme || "midnight-executive";
                             customizationSettings.font = imported.font || "sf-pro";
                             customizationSettings.background = imported.background || "sasuke";
-                            customizationSettings.websiteName = imported.websiteName || "MLBB SUYOU";
+                            customizationSettings.websiteName = imported.websiteName || "SUYOU";
                             customizationSettings.themeTitle = imported.themeTitle || "Sasuke Uchiha";
                             customizationSettings.visualEffect = imported.visualEffect || "glass";
                             customizationSettings.character = imported.character || "sasuke";
+                            customizationSettings.characterProfiles = imported.characterProfiles || {}; // Retain profiles memori karakter
                             saveCustomization();
                         } else if (Array.isArray(imported)) {
                             localStorage.setItem('portals', JSON.stringify(imported));
