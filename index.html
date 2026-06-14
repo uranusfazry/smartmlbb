@@ -754,18 +754,19 @@
             font-family: 'Orbitron', sans-serif !important;
             font-size: 3rem !important;
             font-weight: 700 !important;
-            margin: 0 0 2px 0 !important; /* Turun mendekati garis biru */
+            margin: 0 0 4px 0 !important; 
             text-transform: uppercase !important;
             line-height: 1.1 !important;
             color: white !important;
             text-shadow: none !important;
         }
         @media (min-width: 768px) {
-            .uf-title { font-size: 4.5rem !important; margin: 0 0 4px 0 !important; }
+            .uf-title { font-size: 4.5rem !important; margin: 0 0 8px 0 !important; }
         }
 
         .glitch-effect {
             position: relative;
+            display: inline-block;
         }
         .glitch-effect::before, .glitch-effect::after {
             content: attr(data-text);
@@ -807,19 +808,19 @@
             border-radius: 2px;
         }
 
-        .uf-subtitle.neon-text-purple {
+        .uf-subtitle-glitch {
             font-family: 'Orbitron', sans-serif !important;
-            color: var(--neon-purple) !important;
-            text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 15px var(--neon-purple) !important;
-            font-size: 1.125rem !important;
+            font-size: 1.15rem !important;
+            font-weight: 700 !important;
+            margin: 0 0 12px 0 !important; /* Jarak antara subtitle dan garis neon */
             text-transform: uppercase !important;
-            letter-spacing: 0.05em !important;
-            margin-top: 6px !important; /* Naik mendekati garis pink */
-            margin-bottom: 0 !important;
-            font-weight: 500 !important;
+            line-height: 1.1 !important;
+            color: white !important;
+            text-shadow: none !important;
+            letter-spacing: 0.1em !important;
         }
         @media (min-width: 768px) {
-            .uf-subtitle.neon-text-purple { font-size: 1.25rem !important; margin-top: 8px !important; }
+            .uf-subtitle-glitch { font-size: 1.5rem !important; margin: 0 0 16px 0 !important; }
         }
 
         /* Fix for non-galactic themes missing some definitions after cleanup */
@@ -1405,10 +1406,10 @@
             
             <div class="uf-header-container">
                 <h1 class="glitch-effect uf-title" id="display-website-name" data-text="SUYOU">SUYOU</h1>
+                <h2 class="glitch-effect uf-subtitle-glitch" id="display-theme-title" data-text="Sasuke Uchiha">Sasuke Uchiha</h2>
                 <span class="uf-line-1"></span>
                 <span class="uf-line-2"></span>
             </div>
-            <p id="display-theme-title" class="neon-text-purple uf-subtitle">Sasuke Uchiha</p>
             
         </header>
         <div id="portals-grid"></div>
@@ -2309,7 +2310,10 @@
             heroTitle.textContent = wName;
             heroTitle.setAttribute('data-text', wName); // Memastikan efek glitch mengikuti nama
             
-            document.getElementById('display-theme-title').textContent = tTitle;
+            const themeTitle = document.getElementById('display-theme-title');
+            themeTitle.textContent = tTitle;
+            themeTitle.setAttribute('data-text', tTitle); // Memastikan efek glitch mengikuti subtitle
+            
             document.title = `MLBB Portal | ${wName}`;
             
             // Ubah teks copyright di footer berdasarkan tema karakter aktif
