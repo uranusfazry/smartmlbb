@@ -169,16 +169,16 @@
 
         /* Navbar */
         .navbar {
-            background: rgba(11, 14, 49, 0.9);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 2px solid rgba(255, 93, 216, 0.3);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             position: fixed !important;
             top: 0 !important; left: 0; right: 0; width: 100%;
             z-index: 999999 !important;
             transform: none !important;
-            transition: none !important;
+            transition: background 0.3s ease, border-color 0.3s ease !important;
             will-change: auto;
             padding-top: env(safe-area-inset-top);
         }
@@ -271,9 +271,12 @@
         body:not([data-theme="galactic"]):not([data-theme=""]) {
             background: var(--th-bg) !important; color: var(--th-text) !important;
         }
+        body:not([data-theme="galactic"]):not([data-theme=""]) .navbar,
         body:not([data-theme="galactic"]):not([data-theme=""]) footer {
-            background: var(--th-card) !important;
-            border-color: var(--th-border) !important;
+            background: color-mix(in srgb, var(--th-card) 85%, transparent) !important;
+            border-color: color-mix(in srgb, var(--th-border) 40%, transparent) !important;
+            backdrop-filter: blur(24px) !important;
+            -webkit-backdrop-filter: blur(24px) !important;
         }
         body:not([data-theme="galactic"]):not([data-theme=""]) .modal-content {
             background: var(--th-card) !important;
@@ -323,17 +326,20 @@
          * ============================================= */
         body[data-effect="glass"] .portal-card,
         body[data-effect="glass"] .navbar,
+        body[data-effect="glass"] footer,
         body[data-effect="glass"] .dropdown,
         body[data-effect="glass"] #mobile-menu {
-            backdrop-filter: blur(20px) !important;
-            -webkit-backdrop-filter: blur(20px) !important;
-            background: rgba(255, 255, 255, 0.05) !important;
+            backdrop-filter: blur(24px) !important;
+            -webkit-backdrop-filter: blur(24px) !important;
+            background: rgba(255, 255, 255, 0.08) !important;
         }
         body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="glass"] .portal-card,
         body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="glass"] .navbar,
+        body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="glass"] footer,
         body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="glass"] .dropdown,
         body:not([data-theme="galactic"]):not([data-theme=""])[data-effect="glass"] #mobile-menu {
-            background: color-mix(in srgb, var(--th-card) 40%, transparent) !important;
+            background: color-mix(in srgb, var(--th-card) 50%, transparent) !important;
+            border-color: color-mix(in srgb, var(--th-border) 30%, transparent) !important;
         }
 
         body[data-effect="glow"] .portal-card { box-shadow: 0 0 25px rgba(0, 200, 224, 0.3) !important; }
@@ -717,10 +723,6 @@
             border-color: var(--th-border) !important;
             color: var(--th-text) !important;
             box-shadow: var(--th-shadow, 0 10px 30px rgba(0,0,0,.08)) !important;
-        }
-        body:not([data-theme="galactic"]):not([data-theme=""]) .navbar {
-            background: var(--th-card) !important;
-            border-color: var(--th-border) !important;
         }
         body:not([data-theme="galactic"]):not([data-theme=""]) .portal-card:hover {
             border-color: var(--th-accent) !important;
@@ -1150,10 +1152,14 @@
 
         footer {
             font-family: var(--sf-pro) !important;
-            background: rgba(11,14,49,0.9); border-top: 1px solid rgba(0,200,224,0.2);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             margin-top: auto; height: 70px; display: flex; flex-direction: column;
             align-items: center; justify-content: center; padding: 0 1rem;
-            box-shadow: 0 -2px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
@@ -1294,7 +1300,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="content-layer" style="text-align: center; color: #fff;">
+    <footer class="content-layer" style="text-align: center;">
         <p id="footer-copyright" style="font-size: 0.8125rem; font-weight: 500; opacity: 0.75; letter-spacing: -0.01em;">© 2026 Created by Galactic Starhawk · All Rights Reserved</p>
         <p class="gold-text" style="font-size: 0.75rem; margin-top: 0.35rem; font-weight: 400; letter-spacing: -0.005em;">Forged by Uranus Support Technology</p>
     </footer>
@@ -2237,8 +2243,8 @@
         function setupEventListeners() {
             logoContainer.addEventListener('click', () => {
                 document.body.classList.toggle('light-mode');
-                const mode = document.body.classList.contains('light-mode') ? 'Light Mode' : 'Galactic Mode';
-                window.showNotification('Berhasil', `Mode diubah ke ${mode}`, 'success');
+                const mode = document.body.classList.contains('light-mode') ? 'Mode Terang' : 'Mode Gelap';
+                window.showNotification('Berhasil', `Beralih ke ${mode}`, 'success');
                 toggleFullScreen();
             });
             mobileMenuButton.addEventListener('click', () => {
