@@ -731,6 +731,70 @@
             font-size: 0.8rem !important;
         }
 
+        /* --- EFEK GABUNGAN URANUS FAZRY --- */
+        .glitch-effect {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+        }
+        .glitch-effect::before, .glitch-effect::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+            pointer-events: none;
+            text-transform: uppercase;
+        }
+        .glitch-effect::before {
+            color: #05d9e8;
+            z-index: -1;
+            animation: glitch-anim 3s infinite;
+        }
+        .glitch-effect::after {
+            color: #ff2a6d;
+            z-index: -2;
+            animation: glitch-anim 2s infinite reverse;
+        }
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+
+        .uf-line-1 {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140%;
+            max-width: 250px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #05d9e8, transparent);
+            border-radius: 2px;
+        }
+        .uf-line-2 {
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff2a6d, transparent);
+            border-radius: 2px;
+        }
+        
+        header .profile {
+            border: 3px solid #ff2a6d !important;
+            box-shadow: 0 0 20px #ff2a6d, 0 0 30px #d300c5 !important;
+        }
+
         /* Fix for non-galactic themes missing some definitions after cleanup */
         body:not([data-theme="galactic"]):not([data-theme=""]) .dropdown,
         body:not([data-theme="galactic"]):not([data-theme=""]) #mobile-menu,
@@ -1307,12 +1371,16 @@
 
     <!-- Main Content -->
     <main class="container content-layer" style="padding-top: 110px; padding-bottom: 2rem;">
-        <header class="profile-container">
-            <div class="profile">
+        <header class="profile-container" style="margin-bottom: 4rem;">
+            <div class="profile" style="margin: 0 auto 1.5rem;">
                 <img id="profile-avatar" src="https://files.catbox.moe/7bhm9w.webp" alt="Avatar Profil" style="object-fit: cover;">
             </div>
-            <h1 class="hero-title" id="display-website-name">MLBB Suyou</h1>
-            <p id="display-theme-title" style="color: rgba(255,255,255,0.6); font-size: 0.9375rem; margin-top: -6px; font-family: var(--sf-pro); font-weight: 400; letter-spacing: -0.01em; text-transform: uppercase;">Sasuke Uchiha</p>
+            <div style="position: relative; display: inline-block; text-align: center; margin-bottom: 0.5rem;">
+                <h1 class="hero-title glitch-effect" id="display-website-name" data-text="MLBB Suyou" style="margin-bottom: 0;">MLBB Suyou</h1>
+                <span class="uf-line-1"></span>
+                <span class="uf-line-2"></span>
+            </div>
+            <p id="display-theme-title" style="color: #d300c5; text-shadow: 0 0 5px #d300c5, 0 0 10px #d300c5; font-size: 1.1rem; margin-top: 1.5rem; font-family: var(--sf-pro); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;">Sasuke Uchiha</p>
         </header>
         <div id="portals-grid"></div>
     </main>
@@ -2207,7 +2275,11 @@
 
         window.applyIdentity = function(wName, tTitle) {
             document.getElementById('nav-website-name').textContent = wName;
-            document.getElementById('display-website-name').textContent = wName;
+            
+            const displayWebsiteName = document.getElementById('display-website-name');
+            displayWebsiteName.textContent = wName;
+            displayWebsiteName.setAttribute('data-text', wName);
+            
             document.getElementById('display-theme-title').textContent = tTitle;
             document.title = `MLBB Portal | ${wName}`;
             
