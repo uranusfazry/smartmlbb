@@ -15,14 +15,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 
         :root {
-            --main-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+            --main-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif;
+            --sf-pro: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+            --ios-ease: cubic-bezier(0.4, 0, 0.2, 1);
             --flame-red: #ce00a7;
             --lava-orange: #4a0072;
             --gold: #00c8e0;
@@ -68,6 +68,44 @@
         .font-playfair { font-family: 'Playfair Display', serif; }
         .font-sf-pro {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+        }
+
+        /* =============================================
+         * APPLE SF PRO GLOBAL OVERRIDE SYSTEM
+         * ============================================= */
+
+        /* Redefine Cinzel class → SF Pro agar tidak perlu ubah semua HTML */
+        .font-cinzel,
+        .font-playfair {
+            font-family: var(--sf-pro) !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.02em !important;
+        }
+
+        /* Global body SF Pro */
+        body, input, textarea, select, button,
+        .forge-item, .forge-option,
+        #capacity-text, #capacity-detail,
+        .shortener-badge,
+        .notif-title, .notif-message,
+        .forge-section-title,
+        .forge-font-option-name,
+        .forge-font-option-desc {
+            font-family: var(--main-font) !important;
+        }
+
+        /* iOS transition override */
+        .portal-card,
+        .btn-lava,
+        .btn-secondary,
+        .reveal-btn,
+        .nav-item,
+        .forge-item,
+        .forge-option,
+        .notif-toast,
+        .dropdown,
+        #mobile-menu {
+            transition: all .25s var(--ios-ease) !important;
         }
 
         /* =============================================
@@ -192,26 +230,26 @@
 
         /* Buttons */
         .btn-lava {
-            font-family: 'Cinzel', serif;
+            font-family: var(--sf-pro) !important;
             background: linear-gradient(135deg, var(--lava-orange), var(--flame-red));
-            border: 2px solid var(--gold); border-radius: 8px;
-            padding: 0.5rem 1.2rem; font-size: 0.8rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.05em;
-            transition: all 0.3s ease; position: relative; overflow: hidden; z-index: 1;
+            border: 1.5px solid var(--gold); border-radius: 980px;
+            padding: 0.55rem 1.4rem; font-size: 0.875rem; font-weight: 600;
+            text-transform: none; letter-spacing: -0.01em;
+            transition: all .25s var(--ios-ease); position: relative; overflow: hidden; z-index: 1;
             display: inline-flex; align-items: center; justify-content: center;
-            color: #fff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); cursor: pointer;
+            color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.25); cursor: pointer;
         }
-        .btn-lava:hover { transform: translateY(-3px); border-color: #fff; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); }
-        .btn-lava:active { transform: translateY(0) scale(0.97); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); transition-duration: 0.1s; }
+        .btn-lava:hover { transform: scale(1.03); border-color: rgba(255,255,255,0.6); box-shadow: 0 6px 16px rgba(0,0,0,0.35); }
+        .btn-lava:active { transform: scale(0.97); box-shadow: 0 1px 4px rgba(0,0,0,0.2); transition-duration: 0.1s; }
 
         .btn-secondary {
-            font-family: 'Cinzel', serif;
-            background: rgba(0, 200, 224, 0.1); border: 2px solid rgba(0, 200, 224, 0.4);
-            border-radius: 8px; padding: 0.5rem 1.2rem; font-size: 0.8rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s ease;
+            font-family: var(--sf-pro) !important;
+            background: rgba(0,200,224,0.08); border: 1.5px solid rgba(0,200,224,0.35);
+            border-radius: 980px; padding: 0.55rem 1.4rem; font-size: 0.875rem; font-weight: 600;
+            text-transform: none; letter-spacing: -0.01em; transition: all .25s var(--ios-ease);
             color: var(--gold); cursor: pointer;
         }
-        .btn-secondary:hover { background: rgba(0, 200, 224, 0.2); border-color: var(--gold); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); }
+        .btn-secondary:hover { background: rgba(0,200,224,0.15); border-color: var(--gold); box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
 
         /* =============================================
          * PREMIUM THEME SYSTEM V2 — 10 THEMES
@@ -539,6 +577,138 @@
             border-color: var(--th-accent) !important;
         }
 
+        /* =============================================
+         * APPLE IOS PORTAL CARD BASE STYLE
+         * ============================================= */
+        .portal-card {
+            border-radius: 22px !important;
+        }
+
+        /* Portal card title — Apple style */
+        .portal-card h3 {
+            font-family: var(--sf-pro) !important;
+            font-size: 1rem !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.02em !important;
+            text-transform: none !important;
+            line-height: 1.2 !important;
+        }
+
+        /* Portal description — Apple body text */
+        .portal-description {
+            font-family: var(--sf-pro) !important;
+            font-size: 0.8125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+            letter-spacing: -0.005em !important;
+        }
+
+        /* Nav website name */
+        #nav-website-name {
+            font-family: var(--sf-pro) !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.025em !important;
+        }
+
+        /* display-theme-title subtitle */
+        #display-theme-title {
+            font-family: var(--sf-pro) !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.01em !important;
+        }
+
+        /* display-website-name hero */
+        #display-website-name {
+            font-family: var(--sf-pro) !important;
+            letter-spacing: -0.03em !important;
+        }
+
+        /* Modal content typography */
+        .modal-content h2,
+        .modal-content label,
+        .modal-content p,
+        .modal-content input,
+        .modal-content textarea,
+        .modal-content select,
+        .modal-content button {
+            font-family: var(--sf-pro) !important;
+        }
+        .modal-content h2 {
+            letter-spacing: -0.025em !important;
+            text-transform: none !important;
+            font-weight: 700 !important;
+        }
+
+        /* Premium modal (Add Portal) title */
+        .premium-modal h2 {
+            letter-spacing: -0.03em !important;
+            font-size: 1.5rem !important;
+        }
+
+        /* Premium label */
+        .premium-label {
+            font-family: var(--sf-pro) !important;
+            letter-spacing: -0.005em !important;
+        }
+
+        /* Forge forge-cta button */
+        .forge-cta {
+            font-family: var(--sf-pro) !important;
+            font-weight: 600 !important;
+            letter-spacing: -0.01em !important;
+            border-radius: 14px !important;
+            text-transform: none !important;
+        }
+
+        /* btn-premium */
+        .btn-premium-cancel,
+        .btn-premium-save {
+            font-family: var(--sf-pro) !important;
+            letter-spacing: -0.01em !important;
+            border-radius: 14px !important;
+        }
+
+        /* Footer text */
+        footer p {
+            font-family: var(--sf-pro) !important;
+            font-size: 0.8125rem !important;
+            font-weight: 500 !important;
+            letter-spacing: -0.01em !important;
+            text-transform: none !important;
+        }
+
+        /* Capacity text */
+        #capacity-text, #capacity-detail {
+            font-family: var(--sf-pro) !important;
+            letter-spacing: -0.01em !important;
+        }
+
+        /* Smart link input */
+        #generated-smart-link {
+            font-family: var(--sf-pro) !important;
+            letter-spacing: -0.01em !important;
+        }
+
+        /* Notif toast */
+        .notif-title {
+            font-family: var(--sf-pro) !important;
+            letter-spacing: -0.02em !important;
+        }
+        .notif-message {
+            font-family: var(--sf-pro) !important;
+            letter-spacing: -0.005em !important;
+        }
+
+        /* Dropdown & mobile menu text */
+        .dropdown, #mobile-menu {
+            font-family: var(--sf-pro) !important;
+        }
+
+        /* Compact pro card title override */
+        body[data-effect="compact-pro"] .portal-card h3 {
+            font-size: 0.8rem !important;
+        }
+
         /* Fix for non-galactic themes missing some definitions after cleanup */
         body:not([data-theme="galactic"]):not([data-theme=""]) .dropdown,
         body:not([data-theme="galactic"]):not([data-theme=""]) #mobile-menu,
@@ -577,7 +747,6 @@
             opacity: .55;
             text-transform: uppercase;
             padding: 4px 6px 2px;
-            font-family: 'Inter', sans-serif;
             color: #fff;
         }
         body:not([data-theme="galactic"]):not([data-theme=""]) .forge-section-title { color: var(--th-text) !important; }
@@ -607,7 +776,6 @@
             border: none;
             background: transparent;
             color: #fff;
-            font-family: 'Inter', sans-serif;
             font-size: .9rem;
             font-weight: 600;
             width: 100%;
@@ -676,7 +844,6 @@
             color: rgba(255,255,255,.8);
             font-size: .85rem;
             font-weight: 500;
-            font-family: 'Inter', sans-serif;
         }
         body:not([data-theme="galactic"]):not([data-theme=""]) .forge-option { color: var(--th-text); }
         .forge-option:hover { background: rgba(255,255,255,.06); }
@@ -695,7 +862,7 @@
             background: linear-gradient(135deg, var(--lava-orange), var(--flame-red));
             border: 1px solid rgba(255,255,255,.1);
             border-radius: 12px; color: #fff; font-weight: 700; font-size: .85rem;
-            font-family: 'Inter', sans-serif; cursor: pointer; transition: all .2s ease;
+            cursor: pointer; transition: all .2s ease;
             text-transform: none; letter-spacing: .02em;
         }
         .forge-cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
@@ -729,7 +896,6 @@
         }
 
         .form-section-title {
-            font-family: 'Inter', sans-serif;
             font-size: 0.75rem;
             font-weight: 700;
             color: rgba(255, 255, 255, 0.5);
@@ -743,7 +909,6 @@
         body:not([data-theme="galactic"]):not([data-theme=""]) .form-section-title { color: var(--th-text-sec); }
 
         .premium-label {
-            font-family: 'Inter', sans-serif;
             font-size: 0.8rem !important;
             font-weight: 600 !important;
             color: rgba(255,255,255,0.8) !important;
@@ -820,7 +985,7 @@
         .btn-premium-cancel {
             background: transparent; border: 1px solid rgba(255, 255, 255, 0.15);
             color: #fff; border-radius: 12px; padding: 0 20px; height: 48px;
-            font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.85rem;
+            font-weight: 600; font-size: 0.85rem;
             cursor: pointer; transition: all 0.3s ease; width: auto;
         }
         body:not([data-theme="galactic"]):not([data-theme=""]) .btn-premium-cancel { color: var(--th-text); border-color: var(--th-border); }
@@ -828,7 +993,7 @@
         
         .btn-premium-save {
             background: var(--th-accent, linear-gradient(135deg, #00c8e0, #00e0b8));
-            color: #fff; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.85rem;
+            color: #fff; font-weight: 700; font-size: 0.85rem;
             border: none; border-radius: 12px; padding: 0 20px; height: 48px;
             cursor: pointer; transition: all 0.3s ease; width: auto;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -889,13 +1054,14 @@
         .profile img, .profile video { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
         .profile-separator { width: 60px; height: 1px; background: var(--gold); opacity: 0.5; border-radius: 1px; }
         .hero-title {
-            font-size: 1.35rem; font-weight: 800; color: var(--gold); margin: 0;
-            text-align: center; text-transform: uppercase; letter-spacing: 0.1em;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8); line-height: 1;
+            font-family: var(--sf-pro) !important;
+            font-size: 1.75rem; font-weight: 700; color: var(--gold); margin: 0;
+            text-align: center; text-transform: none; letter-spacing: -0.03em;
+            text-shadow: none; line-height: 1.1;
         }
         @media (min-width: 768px) {
             .profile { width: 180px; height: 180px; }
-            .hero-title { font-size: 1.75rem; }
+            .hero-title { font-size: 2.1rem; }
             .profile-separator { width: 80px; }
         }
 
@@ -932,7 +1098,7 @@
         input, textarea, select {
             background: rgba(11, 14, 49, 0.9) !important;
             border: 2px solid rgba(0, 200, 224, 0.4); transition: all 0.3s ease;
-            border-radius: 6px; color: #fff; font-family: 'Inter', sans-serif;
+            border-radius: 6px; color: #fff;
             padding: 0.5rem 0.75rem !important; font-size: 0.85rem !important; width: 100%;
         }
         input:focus, textarea:focus, select:focus { border-color: var(--gold); outline: none; background: rgba(11, 14, 49, 0.95) !important; }
@@ -941,7 +1107,7 @@
         ::placeholder { color: rgba(0, 200, 224, 0.5); opacity: 1; font-size: 0.8rem; }
         #portal-form > div { margin-bottom: 0.75rem; }
         .form-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.25rem; }
-        .modal-content code { background: rgba(0, 0, 0, 0.4); color: var(--gold); padding: 3px 6px; border-radius: 4px; font-family: 'Inter', sans-serif; }
+        .modal-content code { background: rgba(0, 0, 0, 0.4); color: var(--gold); padding: 3px 6px; border-radius: 4px; }
 
         ::-webkit-scrollbar { display: none; width: 0; background: transparent; }
         html { -ms-overflow-style: none; scrollbar-width: none; }
@@ -972,8 +1138,8 @@
         .notif-toast.show { transform: translateY(0); opacity: 1; }
         .notif-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: bold; flex-shrink: 0; background: rgba(255, 255, 255, 0.05); }
         .notif-content { flex-grow: 1; }
-        .notif-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.9rem; color: #fff; margin-bottom: 2px; display: flex; align-items: center; }
-        .notif-message { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); line-height: 1.3; }
+        .notif-title { font-weight: 700; font-size: 0.9rem; color: #fff; margin-bottom: 2px; display: flex; align-items: center; }
+        .notif-message { font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); line-height: 1.3; }
         .notif-progress { position: absolute; bottom: 0; left: 0; height: 2px; width: 100%; transform-origin: left; }
         .notif-toast.success .notif-progress { background: var(--success-green); }
         .notif-toast.error .notif-progress { background: var(--error-red); }
@@ -983,10 +1149,11 @@
         @media (max-width: 768px) { .notif-container { left: 50%; right: auto; top: 90px; bottom: auto; transform: translateX(-50%); width: 100%; display: flex; align-items: center; } }
 
         footer {
-            background: rgba(11, 14, 49, 0.9); border-top: 2px solid rgba(0, 200, 224, 0.3);
+            font-family: var(--sf-pro) !important;
+            background: rgba(11,14,49,0.9); border-top: 1px solid rgba(0,200,224,0.2);
             margin-top: auto; height: 70px; display: flex; flex-direction: column;
             align-items: center; justify-content: center; padding: 0 1rem;
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.2);
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
@@ -996,25 +1163,35 @@
         #qr-wrapper { margin-top: 1.5rem; text-align: center; display: flex; flex-direction: column; align-items: center; transition: all 0.5s ease; }
         .qr-frame { position: relative; padding: 0; background: transparent; display: inline-block; }
         #qr-canvas-display { border-radius: 12px; box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5); max-width: 200px; width: 100%; height: auto; }
-        .btn-download-4k { background: #ffffff; border: none; color: #000; padding: 0.6rem 1rem; border-radius: 20px; font-size: 0.75rem; margin-top: 1.25rem; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Inter', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .btn-download-4k { background: #ffffff; border: none; color: #000; padding: 0.6rem 1rem; border-radius: 20px; font-size: 0.75rem; margin-top: 1.25rem; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .btn-download-4k:hover { background: #f0f0f0; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
 
         .reveal-btn {
-            width: 100%; padding: 0.75rem 1.25rem; background: rgba(11, 14, 49, 0.6);
-            border: 2px solid var(--gold); border-radius: 10px; color: var(--gold);
-            font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; cursor: pointer;
-            transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;
-            gap: 10px; margin-bottom: 0; text-transform: uppercase; letter-spacing: 0.05em;
+            width: 100%; padding: 0.75rem 1.25rem; background: rgba(255,255,255,0.05);
+            border: 1.5px solid rgba(255,255,255,0.12); border-radius: 14px; color: var(--gold);
+            font-family: var(--sf-pro) !important; font-size: 0.9rem; font-weight: 600; cursor: pointer;
+            transition: all .25s var(--ios-ease); display: flex; align-items: center; justify-content: center;
+            gap: 10px; margin-bottom: 0; text-transform: none; letter-spacing: -0.01em;
             position: relative; overflow: hidden;
         }
-        .reveal-btn:hover { background: rgba(0, 200, 224, 0.15); border-color: #fff; transform: translateY(-2px); box-shadow: 0 0 20px rgba(0, 200, 224, 0.3); text-shadow: 0 0 8px rgba(0, 200, 224, 0.8); }
-        .reveal-btn:active { transform: translateY(0); }
+        .reveal-btn:hover { background: rgba(0,200,224,0.1); border-color: rgba(0,200,224,0.5); transform: scale(1.01); box-shadow: 0 4px 16px rgba(0,200,224,0.15); }
+        .reveal-btn:active { transform: scale(0.98); }
 
-        .modal-title-custom { font-size: 1.25rem; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: var(--gold); }
-        .modal-desc-custom { margin-bottom: 1.5rem; font-size: 0.85rem; color: rgba(0, 200, 224, 0.85); line-height: 1.5; }
+        .modal-title-custom {
+            font-family: var(--sf-pro) !important;
+            font-size: 1.3rem; margin-bottom: 0.75rem;
+            text-transform: none; letter-spacing: -0.025em;
+            font-weight: 700; color: var(--gold);
+        }
+        .modal-desc-custom {
+            font-family: var(--sf-pro) !important;
+            margin-bottom: 1.5rem; font-size: 0.9375rem;
+            color: rgba(0,200,224,0.85); line-height: 1.5;
+            letter-spacing: -0.01em; font-weight: 400;
+        }
         .modal-actions { display: flex; flex-direction: column; gap: 1.5rem; }
         .hidden-content { display: none; animation: fadeIn 0.5s ease; margin-top: 1rem; }
-        .shortener-badge { background: rgba(0, 200, 224, 0.1); border: 1px solid var(--gold); border-radius: 4px; padding: 4px 8px; font-family: 'Inter', sans-serif; font-weight: 600; color: #fff; font-size: 0.85rem; display: inline-block; margin: 0 4px; }
+        .shortener-badge { background: rgba(0, 200, 224, 0.1); border: 1px solid var(--gold); border-radius: 4px; padding: 4px 8px; font-weight: 600; color: #fff; font-size: 0.85rem; display: inline-block; margin: 0 4px; }
 
         @media (max-width: 480px) {
             .modal-content { padding: 1.5rem 1.25rem !important; width: 88%; }
@@ -1047,11 +1224,6 @@
 
         /* Dropdown wider for theme panel */
         .dropdown-wide { width: 360px !important; max-height: 80vh; overflow-y: auto; padding: 1rem !important; }
-
-        /* Global Font Override */
-        body, input, textarea, select, button, .forge-item, .forge-option, #capacity-text, #capacity-detail, .shortener-badge {
-            font-family: var(--main-font), 'Inter', sans-serif;
-        }
     </style>
 </head>
 <body>
@@ -1073,13 +1245,13 @@
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div id="logo-container" style="display: flex; align-items: center; cursor: pointer; user-select: none;">
                     <img src="https://files.catbox.moe/oyk6sx.png" alt="Logo" class="logo-pulse" style="height: 50px; width: auto; border-radius: 50%;" draggable="false" crossorigin="anonymous">
-                    <span class="font-cinzel gold-text" id="nav-website-name" style="font-weight: 700; font-size: 1.25rem; letter-spacing: 0.05em; margin-left: 1rem;">MLBB SUYOU</span>
+                    <span id="nav-website-name" style="font-weight: 700; font-size: 1.2rem; letter-spacing: -0.025em; margin-left: 1rem; color: var(--gold);">MLBB Suyou</span>
                 </div>
 
                 <!-- Desktop Nav -->
                 <div style="display: none;" class="desktop-nav">
                     <div class="nav-item relative group" style="display: inline-block; position: relative;">
-                        <button class="flame-text" style="display: flex; align-items: center; gap: 0.5rem; background: none; border: none; cursor: pointer; font-family: 'Cinzel', serif; font-size: 0.875rem; text-transform: uppercase;">
+                        <button class="flame-text" style="display: flex; align-items: center; gap: 0.5rem; background: none; border: none; cursor: pointer; font-family: var(--sf-pro); font-size: 0.875rem; font-weight: 600; letter-spacing: -0.01em; text-transform: none;">
                             <i class="fas fa-moon"></i>
                             <span>Forge</span>
                             <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
@@ -1115,16 +1287,16 @@
             <div class="profile">
                 <img id="profile-avatar" src="https://files.catbox.moe/7bhm9w.webp" alt="Avatar Profil" style="object-fit: cover;">
             </div>
-            <h1 class="hero-title" id="display-website-name">MLBB SUYOU</h1>
-            <p id="display-theme-title" style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: -8px; font-family: var(--main-font); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;">Sasuke Uchiha</p>
+            <h1 class="hero-title" id="display-website-name">MLBB Suyou</h1>
+            <p id="display-theme-title" style="color: rgba(255,255,255,0.6); font-size: 0.9375rem; margin-top: -6px; font-family: var(--sf-pro); font-weight: 400; letter-spacing: -0.01em; text-transform: none;">Sasuke Uchiha</p>
         </header>
         <div id="portals-grid"></div>
     </main>
 
     <!-- Footer -->
     <footer class="content-layer" style="text-align: center; color: #fff;">
-        <p id="footer-copyright" class="font-cinzel" style="font-size: 0.875rem; opacity: 0.85;">© 2026 Created by GALACTIC STARHAWK | All Rights Reserved</p>
-        <p class="gold-text font-cinzel" style="font-size: 0.75rem; margin-top: 0.5rem;">Forged by Uranus Support Technology</p>
+        <p id="footer-copyright" style="font-size: 0.8125rem; font-weight: 500; opacity: 0.75; letter-spacing: -0.01em;">© 2026 Created by Galactic Starhawk · All Rights Reserved</p>
+        <p class="gold-text" style="font-size: 0.75rem; margin-top: 0.35rem; font-weight: 400; letter-spacing: -0.005em;">Forged by Uranus Support Technology</p>
     </footer>
 
     <!-- Add Portal Modal -->
@@ -1133,8 +1305,8 @@
             <button onclick="document.getElementById('add-portal-modal').style.display = 'none'" class="modal-close-btn"><i class="fas fa-times"></i></button>
             
             <div style="margin-bottom: 24px;">
-                <h2 class="font-cinzel gold-text" style="font-size: 24px; margin-bottom: 4px; font-weight: 700;">Tambah Portal</h2>
-                <p style="color: rgba(255,255,255,0.5); font-size: 13px; font-family: 'Inter', sans-serif;">Buat tautan baru untuk portal Anda</p>
+                <h2 class="gold-text" style="font-size: 24px; margin-bottom: 4px;">Tambah Portal</h2>
+                <p style="color: rgba(255,255,255,0.5); font-size: 13px;">Buat tautan baru untuk portal Anda</p>
             </div>
 
             <form id="portal-form" style="display: flex; flex-direction: column; gap: 16px;">
@@ -1241,7 +1413,7 @@
     <div id="password-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; display: none; align-items: center; justify-content: center; z-index: 55;">
         <div class="modal-content" style="text-align: center;">
             <div style="font-size: 2.5rem; color: var(--gold); margin-bottom: 0.5rem;"><i class="fas fa-lock"></i></div>
-            <h2 class="font-cinzel gold-text">Portal Locked</h2>
+            <h2 style="font-family: var(--sf-pro); font-weight: 700; letter-spacing: -0.025em; color: var(--gold);">Portal Locked</h2>
             <p class="modal-desc-custom" style="margin-bottom: 1rem;">Portal ini dilindungi sandi. Masukkan password untuk melanjutkan.</p>
             <form onsubmit="event.preventDefault(); submitPassword();">
                 <input type="password" id="unlock-input" placeholder="Masukkan password..." style="text-align: center; margin-bottom: 1.5rem;" required>
@@ -1257,18 +1429,18 @@
     <div id="smart-link-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; display: none; align-items: center; justify-content: center; z-index: 55;">
         <div class="modal-content">
             <button onclick="document.getElementById('smart-link-modal').style.display = 'none'" class="modal-close-btn"><i class="fas fa-times"></i></button>
-            <h2 class="font-cinzel modal-title-custom">Smart Link Siap <span style="display:inline-block; margin-left: 0.1em;">🚀</span></h2>
+            <h2 class="modal-title-custom">Smart Link Siap <span style="display:inline-block; margin-left: 0.1em;">🚀</span></h2>
             <p class="modal-desc-custom">Link ini sudah berisi semua portal dan pengaturan kustomisasi kamu. Klik tombol di bawah untuk menampilkan.</p>
             <div id="capacity-container" style="margin-bottom: 2.5rem; background: rgba(0,0,0,0.25); padding: 1.25rem 1.5rem; border-radius: 12px; border: 1px solid rgba(0, 200, 224, 0.15);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                    <span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.9rem; color: var(--gold); letter-spacing: 0.05em;">Kapasitas Data</span>
-                    <span id="capacity-text" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.85rem; color: rgba(255,255,255,0.9);">0%</span>
+                    <span style="font-weight: 700; font-size: 0.9rem; color: var(--gold); letter-spacing: 0.05em;">Kapasitas Data</span>
+                    <span id="capacity-text" style="font-weight: 600; font-size: 0.85rem; color: rgba(255,255,255,0.9);">0%</span>
                 </div>
                 <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin-bottom: 0.5rem;">
                     <div id="capacity-bar" style="width: 0%; height: 100%; background: var(--success-green); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), background 0.6s ease; border-radius: 4px;"></div>
                 </div>
                 <div style="display: flex; justify-content: flex-end; margin-top: 0.5rem;">
-                    <span id="capacity-detail" style="font-size: 0.75rem; color: rgba(255,255,255,0.6); font-family: 'Inter', sans-serif; letter-spacing: 0.02em;">Menghitung...</span>
+                    <span id="capacity-detail" style="font-size: 0.75rem; color: rgba(255,255,255,0.6); letter-spacing: 0.02em;">Menghitung...</span>
                 </div>
             </div>
             <div class="modal-actions">
@@ -1295,7 +1467,7 @@
     <div id="limit-warning-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; display: none; align-items: center; justify-content: center; z-index: 60;">
         <div class="modal-content" style="text-align: center;">
             <div style="font-size: 3rem; color: var(--gold); margin-bottom: 1rem;"><i class="fas fa-exclamation-triangle"></i></div>
-            <h2 class="font-cinzel flame-text" style="font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">Kapasitas Maksimal ⚠️</h2>
+            <h2 style="font-family: var(--sf-pro); font-size: 1.3rem; margin-bottom: 1rem; font-weight: 700; letter-spacing: -0.025em; color: var(--flame-red);">Kapasitas Maksimal ⚠️</h2>
             <p style="margin-bottom: 1.5rem; font-size: 0.95rem; color: rgba(255, 255, 255, 0.9); line-height: 1.6;">Data portal Anda telah mencapai batas ukuran optimal untuk QR Code.<br><br><strong class="gold-text">Solusi:</strong> Persingkat Judul & Deskripsi, atau gunakan URL Shortener untuk link panjang.</p>
             <div style="display: flex; justify-content: center;"><button onclick="document.getElementById('limit-warning-modal').style.display='none'" class="btn-lava">Mengerti & Perbaiki</button></div>
         </div>
@@ -1304,7 +1476,7 @@
     <!-- Confirmation Modal -->
     <div id="confirmation-modal" class="fixed inset-0 flex items-center justify-center hidden modal-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; display: none; align-items: center; justify-content: center; z-index: 60;">
         <div class="modal-content" style="text-align: center;">
-            <h2 class="font-cinzel flame-text" style="font-size: 1.25rem; margin-bottom: 1rem; font-weight: 700;">Konfirmasi Tindakan</h2>
+            <h2 style="font-family: var(--sf-pro); font-size: 1.2rem; margin-bottom: 1rem; font-weight: 700; letter-spacing: -0.025em; color: var(--flame-red);">Konfirmasi Tindakan</h2>
             <p id="confirmation-message" style="margin-bottom: 1.5rem; font-size: 1rem; color: rgba(0, 200, 224, 0.9);">Apakah Anda yakin?</p>
             <div style="display: flex; justify-content: center; gap: 1rem;">
                 <button id="confirm-cancel-btn" class="btn-secondary">Batal</button>
@@ -2010,16 +2182,25 @@
         };
 
         window.applyIdentity = function(wName, tTitle) {
-            document.getElementById('nav-website-name').textContent = wName;
-            document.getElementById('display-website-name').textContent = wName;
+            // Preserve Apple-style casing: jika semua caps, convert ke Title Case
+            const toAppleCase = (str) => {
+                if (!str) return str;
+                if (str === str.toUpperCase() && str.length > 1) {
+                    return str.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+                }
+                return str;
+            };
+            const displayName = toAppleCase(wName);
+            document.getElementById('nav-website-name').textContent = displayName;
+            document.getElementById('display-website-name').textContent = displayName;
             document.getElementById('display-theme-title').textContent = tTitle;
-            document.title = `MLBB Portal | ${wName}`;
+            document.title = `MLBB Portal | ${displayName}`;
             
             // Ubah teks copyright di footer berdasarkan tema karakter aktif
-            let fName = (tTitle && tTitle.toLowerCase().includes("sasuke")) ? "SASUKE UCHIHA" : "GALACTIC STARHAWK";
+            let fName = (tTitle && tTitle.toLowerCase().includes("sasuke")) ? "Sasuke Uchiha" : "Galactic Starhawk";
             const footerEl = document.getElementById('footer-copyright');
             if (footerEl) {
-                footerEl.innerHTML = `&copy; 2026 Created by ${fName} | All Rights Reserved`;
+                footerEl.innerHTML = `&copy; 2026 Created by ${fName} &middot; All Rights Reserved`;
             }
             
             // Sync hidden inputs safely (kept for backward compatibility)
@@ -2154,7 +2335,7 @@
                     <div style="padding: 1.5rem; text-align: center; position: relative; height: 100%;">
                         <div style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
                             ${iconHtml}
-                            <h3 class="font-cinzel" style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; word-break: break-word; font-size: 1.125rem; margin-bottom: 0.5rem;">${portal.name}</h3>
+                            <h3 style="word-break: break-word; margin-bottom: 0.5rem;">${portal.name}</h3>
                             <p class="portal-description">${portal.description || '&nbsp;'}</p>
                         </div>
                         <button onclick="event.stopPropagation(); showConfirmationModal('Yakin ingin menghapus portal ${portal.name}?', () => deletePortalAction(${index}))" class="delete-btn">
